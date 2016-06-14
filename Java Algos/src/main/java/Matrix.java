@@ -1,5 +1,3 @@
-package com.company;
-
 import java.security.Key;
 import java.util.Dictionary;
 import java.util.HashMap;
