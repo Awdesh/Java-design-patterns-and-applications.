@@ -1,6 +1,6 @@
-public class test
+public class replace20
 {
-    public test()
+    public replace20()
     {
         System.out.println("inside test");
     }
