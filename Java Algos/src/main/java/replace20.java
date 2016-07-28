@@ -1,10 +1,5 @@
 public class replace20
 {
-    public replace20()
-    {
-        System.out.println("inside test");
-    }
-
     public String ReplaceFun(String str, int length)
     {
         char[] charArray = str.toCharArray();
