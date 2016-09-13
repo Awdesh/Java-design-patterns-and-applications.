@@ -1,5 +1,3 @@
-package ArraynStrings;
-
 import java.util.Stack;
 
 /**
