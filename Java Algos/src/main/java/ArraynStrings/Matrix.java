@@ -1,3 +1,5 @@
+package ArraynStrings;
+
 import java.security.Key;
 import java.util.Dictionary;
 import java.util.HashMap;

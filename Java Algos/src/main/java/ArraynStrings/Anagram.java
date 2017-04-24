@@ -6,10 +6,7 @@ import java.util.HashMap;
  * Created by awdesh on 6/29/16.
  */
 public class Anagram {
-    public Anagram(){
-
-    }
-
+    
     public boolean areAnagram(String s1, String s2){
         if(s1.length() != s2.length()){
             return false;
