@@ -1,3 +1,5 @@
+package ArraynStrings;
+
 public class replace20
 {
     public String ReplaceFun(String str, int length)
@@ -31,5 +33,9 @@ public class replace20
 
         return charArray.toString();
 
+    }
+
+    public static void main(String[] args) {
+        replace20 r2 = new replace20();
     }
 }

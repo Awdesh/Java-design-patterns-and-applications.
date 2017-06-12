@@ -1,3 +1,4 @@
+package PriorityQueue;
 import java.util.Comparator;
 
 /**
@@ -5,7 +6,6 @@ import java.util.Comparator;
  */
 public class CharComparator implements Comparator<Character>{
 
-   @Override
     public int compare(Character a, Character b){
         if(a > b){
             return 1;

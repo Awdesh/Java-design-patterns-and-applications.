@@ -1,4 +1,4 @@
-package com.company;
+package HashTable;
 
 /**
  * Created by awdesh on 10/26/15.

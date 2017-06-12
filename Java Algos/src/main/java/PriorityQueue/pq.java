@@ -1,4 +1,4 @@
-import sun.awt.datatransfer.DataTransferer;
+package PriorityQueue;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
