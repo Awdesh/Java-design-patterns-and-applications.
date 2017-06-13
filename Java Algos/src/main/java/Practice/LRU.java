@@ -83,19 +83,18 @@ import java.util.Scanner;
  */
 class NodeList
 {
-    String value;
-
-    int currSize = 0;
+    int size;
+    int currSize;
     Node head;
     Node tail;
 
     /*
 
      */
-    public NodeList(String value)
+    public NodeList(int size)
     {
-        this.value = value;
-        head = new Node(value);
+        this.size = size;
+        this.currSize = 0;
     }
 
     /*
@@ -103,7 +102,6 @@ class NodeList
      */
     public Node insert(String value)
     {
-
         Node node = new Node(value);
 
         if (head == null){
@@ -122,6 +120,7 @@ class NodeList
         node.setNext(head);
         head.setPrev(node);
         head = node;
+        currSize += 1;
 
         return node;
     }
@@ -131,7 +130,15 @@ class NodeList
      */
     public void updateHead(Node node)
     {
-
+        if (head == null)
+        {
+            head = node;
+            tail = node;
+            return;
+        }
+        Node temp = head;
+        head = node;
+        node.setNext(temp);
     }
 
     public int getCurrSize() {
@@ -145,12 +152,12 @@ class NodeList
         return tail;
     }
 
-    public String getValue() {
-        return value;
+    public int getSize() {
+        return size;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public void setCurrSize(int currSize) {
@@ -176,7 +183,7 @@ class Node
     private Node prev;
     private Node next;
 
-    public Node(String value)
+    public  Node(String value)
     {
         this.value = value;
     }
@@ -213,15 +220,16 @@ class Node
 public class LRU
 {
     private final int MAX_SIZE;
-    HashMap<String, NodeList> map = new HashMap<String, NodeList>();
+    HashMap<String, Node> map = new HashMap<String, Node>();
+    private NodeList itemList;
 
     /*
-
 
      */
     public LRU(int size)
     {
         MAX_SIZE = size;
+        itemList = new NodeList(size);
     }
 
     /*
@@ -237,15 +245,17 @@ public class LRU
      */
     public String get(String key){
 
-//        if(map.size() <= 0){
-//            return "ERROR";
-//        }
+        Node node = null;
 
         if(!map.containsKey(key)){
             return "NOTFOUND";
+        } else {
+            // key exists inside the map, make it a head.
+            node = map.get(key);
+            itemList.updateHead(node);
         }
 
-        return "";
+        return node.getValue();
     }
 
     /*
@@ -253,23 +263,29 @@ public class LRU
      */
     public String set(String key, String value){
 
+        Node node = null;
+
         if (map.size() == MAX_SIZE)
         {
             // Find the last recently used and replace it.
-//            map.remove()
+            map.remove(itemList.getTail().getValue());
         } else
         {
+            itemList = new NodeList(MAX_SIZE);
+
             if(map.containsKey(key))
             {
-                // make this new node as head of the NodeList.
-                Node node = map.get(key);
+                node = map.get(key);
+            } else { // map is empty.
+                itemList.insert(value);
+                node = new Node(value);
+                map.put(key, node);
             }
+            // make this new node as head of the NodeList.
+            itemList.updateHead(node);
         }
 
-
-
-
-        return "";
+        return "OK";
     }
 }
 
