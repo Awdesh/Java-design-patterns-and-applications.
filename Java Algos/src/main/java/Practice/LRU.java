@@ -114,8 +114,7 @@ class NodeList
         {
             currSize += 1;
         }
-
-        // update the tail of the list.
+        // size of the list is equal to maximum size possible thus remove the tail node (least recently used node)
         else{
             tail = tail.getPrev();
             tail.setNext(null);
