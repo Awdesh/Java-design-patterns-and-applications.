@@ -110,6 +110,10 @@ class NodeList
             currSize = 1;
             return node;
         }
+        else if(currSize < size)
+        {
+            currSize += 1;
+        }
 
         // update the tail of the list.
         else{
@@ -120,7 +124,6 @@ class NodeList
         node.setNext(head);
         head.setPrev(node);
         head = node;
-        currSize += 1;
 
         return node;
     }
@@ -255,7 +258,7 @@ public class LRU
             itemList.updateHead(node);
         }
 
-        return node.getValue();
+        return "GOT " + node.getValue();
     }
 
     /*
@@ -276,6 +279,7 @@ public class LRU
             if(map.containsKey(key))
             {
                 node = map.get(key);
+                node.setValue(value);
             } else { // map is empty.
                 itemList.insert(value);
                 node = new Node(value);
