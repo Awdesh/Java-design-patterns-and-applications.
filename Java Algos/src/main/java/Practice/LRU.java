@@ -132,15 +132,36 @@ class NodeList
      */
     public void updateHead(Node node)
     {
-        if (head == null)
+        if (node == tail)
         {
-            head = node;
-            tail = node;
+            tail = tail.getPrev();
+            tail.setNext(null);
+        }
+
+        // no need to update head.
+        if ( node == null || node.equals(head))
+        {
             return;
         }
-        Node temp = head;
+
+        Node prev = node.getPrev();
+        Node next = node.getNext();
+        if (prev == null)
+        {
+            return;
+        }
+        prev.setNext(next);
+
+        if (next != null)
+        {
+            next.setPrev(prev);
+        }
+
+        node.setPrev(null);
+        node.setNext(head);
+
+        head.setPrev(node);
         head = node;
-        node.setNext(temp);
     }
 
     public int getCurrSize() {
@@ -265,27 +286,36 @@ public class LRU
      */
     public String set(String key, String value){
 
-        Node node = null;
+        Node node;
 
-        if (map.size() == MAX_SIZE)
+        // map is already full, we'd need to replace the existing nodes.
+        if (map.size() >= MAX_SIZE)
         {
             // Find the last recently used and replace it.
-            map.remove(itemList.getTail().getValue());
-        } else
+            String s = itemList.getTail().getValue();
+            for(String iter: map.keySet())
+            {
+                if(map.get(iter).getValue() == s){
+                    map.remove(iter);
+                }
+            }
+            itemList.insert(value);
+            node = new Node(value);
+            map.put(key, node);
+        }
+        else
         {
-            itemList = new NodeList(MAX_SIZE);
-
             if(map.containsKey(key))
             {
                 node = map.get(key);
                 node.setValue(value);
-            } else { // map is empty.
+                // make this new node as head of the NodeList.
+                itemList.updateHead(node);
+            } else { // either map is empty or doesn't contain key.
                 itemList.insert(value);
                 node = new Node(value);
-                map.put(key, node);
             }
-            // make this new node as head of the NodeList.
-            itemList.updateHead(node);
+            map.put(key, node);
         }
 
         return "OK";
