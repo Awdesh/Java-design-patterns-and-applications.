@@ -75,6 +75,9 @@ Solution-:
 */
 
 package Practice;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -148,6 +151,7 @@ class NodeList
         Node next = node.getNext();
         if (prev == null)
         {
+            head.setValue(node.getValue());
             return;
         }
         prev.setNext(next);
@@ -289,14 +293,16 @@ public class LRU
         Node node;
 
         // map is already full, we'd need to replace the existing nodes.
-        if (map.size() >= MAX_SIZE)
+        if (map.size() == MAX_SIZE)
         {
             // Find the last recently used and replace it.
             String s = itemList.getTail().getValue();
             for(String iter: map.keySet())
             {
-                if(map.get(iter).getValue() == s){
+                String ss = map.get(iter).getValue();
+                if(ss == s){
                     map.remove(iter);
+                    break;
                 }
             }
             itemList.insert(value);
@@ -339,37 +345,44 @@ class client
             System.out.println("SIZE OK");
         }
 
-        while (true){
-            cmdString = scanner.next();
+        try {
 
-            // getting value from key.
-            if(cmdString.equals("GET"))
-            {
-                String keyItemString = scanner.next();
 
-                if(cache.getSize() == myInt)
-                {
-                    //cache is full, remove tail node and add
-                    // new node in the beginning.
+            while (true) {
+//                cmdString = scanner.next();
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                String ip = br.readLine();
+                String[] ips = ip.split(" ");
 
+                // getting value from key.
+                if (ip.contains("GET")) {
+                    if (ips.length > 2)
+                    {
+                        System.out.println("ERROR");
+                        continue;
+                    }
+                    String retItem = cache.get(ips[1]);
+                    System.out.println(retItem);
                 }
-                String retItem = cache.get(keyItemString);
-                System.out.println(retItem);
-            }
 
-            // Setting key and value.
-            else if(cmdString.equals("SET")){
-                String keyItemString = scanner.next();
-                String valItemString = scanner.next();
-                cache.set(keyItemString, valItemString);
-                System.out.println("SET OK");
-            }
+                // Setting key and value.
+                else if (ip.contains("SET")) {
+                    if (ips.length < 3)
+                    {
+                        System.out.println("ERROR");
+                        continue;
+                    }
+                    cache.set(ips[1], ips[2]);
+                    System.out.println("SET OK");
+                }
 
-            // Exits the program if user enters "EXIT".
-            else if(cmdString.equals("EXIT")){
-                scanner.close();
-                break;
+                // Exits the program if user enters "EXIT".
+                else if (ip.contains("EXIT")) {
+                    break;
+                }
             }
+        } catch (IOException ex){
+            ex.printStackTrace();
         }
 
     }
