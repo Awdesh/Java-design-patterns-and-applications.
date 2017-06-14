@@ -168,35 +168,8 @@ class NodeList
         head = node;
     }
 
-    public int getCurrSize() {
-        return currSize;
-    }
-
-    public Node getHead() {
-        return head;
-    }
     public Node getTail() {
         return tail;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public void setCurrSize(int currSize) {
-        this.currSize = currSize;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
-    }
-
-    public void setTail(Node tail) {
-        this.tail = tail;
     }
 }
 
@@ -262,17 +235,9 @@ public class LRU
     /*
 
      */
-    public int getSize()
-    {
-        return MAX_SIZE;
-    }
-
-    /*
-
-     */
     public String get(String key){
 
-        Node node = null;
+        Node node;
 
         if(!map.containsKey(key)){
             return "NOTFOUND";
@@ -346,8 +311,6 @@ class client
         }
 
         try {
-
-
             while (true) {
 //                cmdString = scanner.next();
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
