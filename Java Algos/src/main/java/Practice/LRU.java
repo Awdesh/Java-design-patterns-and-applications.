@@ -290,7 +290,8 @@ public class LRU
         if(!map.containsKey(key))
         {
             return NOTFOUND;
-        } else
+        }
+        else
         {
             // key exists inside the map, make it a head.
             node = map.get(key);
@@ -336,7 +337,10 @@ public class LRU
                 node.setValue(value);
                 // make this new node as head of the NodeList.
                 itemList.updateHead(node);
-            } else { // either map is empty or doesn't contain key.
+            }
+            else
+            {
+                // either map is empty or doesn't contain key.
                 itemList.insert(value);
                 node = new Node(value);
             }
