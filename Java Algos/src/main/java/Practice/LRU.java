@@ -75,14 +75,10 @@ Solution-:
 */
 
 package Practice;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Scanner;
 
-/*
-
+/**
+ * An object that keeps track of head and tail node in the list.
  */
 class NodeList
 {
@@ -91,8 +87,9 @@ class NodeList
     Node head;
     Node tail;
 
-    /*
-
+    /**
+     * A parametrized constructor to initialize.
+     * @param size Initializes the size of list.
      */
     public NodeList(int size)
     {
@@ -100,14 +97,17 @@ class NodeList
         this.currSize = 0;
     }
 
-    /*
-    This method will create new node inside the list.
+    /**
+     * This method will create new node inside the list.
+     * @param value -: inserts a value inside the list.
+     * @return -: A node object that's been inserted inside the list.
      */
     public Node insert(String value)
     {
         Node node = new Node(value);
 
-        if (head == null){
+        if (head == null)
+        {
             head = node;
             tail = node;
             currSize = 1;
@@ -118,11 +118,13 @@ class NodeList
             currSize += 1;
         }
         // size of the list is equal to maximum size possible thus remove the tail node (least recently used node)
-        else{
+        else
+        {
             tail = tail.getPrev();
             tail.setNext(null);
         }
 
+        // inserts new node my making it new head.
         node.setNext(head);
         head.setPrev(node);
         head = node;
@@ -130,8 +132,9 @@ class NodeList
         return node;
     }
 
-    /*
-     This method will update supplied node inside the list to be the new head.
+    /**
+     * This method will update supplied node inside the list to be the new head.
+     * @param node-: A node object that is accessed last and should now become head.
      */
     public void updateHead(Node node)
     {
@@ -141,7 +144,7 @@ class NodeList
             tail.setNext(null);
         }
 
-        // no need to update head.
+        // If passed node object is already head, no need to process further.
         if ( node == null || node.equals(head))
         {
             return;
@@ -149,6 +152,7 @@ class NodeList
 
         Node prev = node.getPrev();
         Node next = node.getNext();
+
         if (prev == null)
         {
             head.setValue(node.getValue());
@@ -168,63 +172,104 @@ class NodeList
         head = node;
     }
 
-    public Node getTail() {
+    /**
+     * gets the tail node from the list.
+     * @return A tail node object.
+     */
+    public Node getTail()
+    {
         return tail;
     }
 }
 
-/*
-A node class for linked list traversal.
+/**
+ * A node class for linked list traversal.
  */
-
 class Node
 {
     private String value;
     private Node prev;
     private Node next;
 
+    /**
+     * A parametrized constructor.
+     * @param value-: value to be initialized.
+     */
     public  Node(String value)
     {
         this.value = value;
     }
 
+    /**
+     * Getter method to get the value of the node.
+     * @return A String value.
+     */
     public String getValue()
     {
         return value;
     }
 
+    /**
+     * Getter method to get the next node.
+     * @return A Node object.
+     */
     public Node getNext() {
         return next;
     }
 
+    /**
+     * Getter method to get the prev node.
+     * @return A Node object.
+     */
     public Node getPrev() {
         return prev;
     }
 
+    /**
+     * Setter method to set the next node.
+     * @param next A node object to point to next.
+     */
     public void setNext(Node next) {
         this.next = next;
     }
 
+    /**
+     * Setter method to set the previous node.
+     * @param prev A node object to point to prev.
+     */
     public void setPrev(Node prev) {
         this.prev = prev;
     }
 
+    /**
+     * Setter method to set the value.
+     * @param value A value to set on the node.
+     */
     public void setValue(String value) {
         this.value = value;
     }
 }
 
-/*
-
+/**
+ * A Least recently cache class which inserts performs following operations.
+ * Gets: Get value from the cache when key is supplied.
+ * Sets: Sets the value corresponding to the key in cache.
  */
 public class LRU
 {
+    // Maximum size cache can take.
     private final int MAX_SIZE;
     HashMap<String, Node> map = new HashMap<String, Node>();
+    // A NodeList object to maintain values so as to update last accessed node.
     private NodeList itemList;
 
-    /*
+    private static final String NOTFOUND = "NOTFOUND";
+    private static final String OK = "OK";
+    private static final String GOT = "GOT";
 
+    /**
+     * A parametrized constructor.
+     * @param size-: Size that cache should take.
      */
     public LRU(int size)
     {
@@ -232,26 +277,34 @@ public class LRU
         itemList = new NodeList(size);
     }
 
-    /*
-
+    /**
+     * Method gets the value corresponding to the key from cache.
+     *
+     * @param key-: A string key whose corresponding value needs to be retrieved.
+     * @return-: A string. "NOTFOUND" if key is not present in the cache else return "GOT value".
      */
-    public String get(String key){
-
+    public String get(String key)
+    {
         Node node;
 
-        if(!map.containsKey(key)){
-            return "NOTFOUND";
-        } else {
+        if(!map.containsKey(key))
+        {
+            return NOTFOUND;
+        } else
+        {
             // key exists inside the map, make it a head.
             node = map.get(key);
             itemList.updateHead(node);
         }
 
-        return "GOT " + node.getValue();
+        return GOT.concat(" ").concat(node.getValue());
     }
 
-    /*
-
+    /**
+     * Inserts key and corresponding value inside cache.
+     * @param key-: A String value representing key.
+     * @param value-: A String value representing value.
+     * @return A string value.
      */
     public String set(String key, String value){
 
@@ -260,16 +313,17 @@ public class LRU
         // map is already full, we'd need to replace the existing nodes.
         if (map.size() == MAX_SIZE)
         {
-            // Find the last recently used and replace it.
-            String s = itemList.getTail().getValue();
+            // Find the least recently used and remove it.
             for(String iter: map.keySet())
             {
-                String ss = map.get(iter).getValue();
-                if(ss == s){
+                // find the tail node from list and remove it from map.
+                if(itemList.getTail().getValue().equals(map.get(iter).getValue())){
                     map.remove(iter);
                     break;
                 }
             }
+
+            // Since remove happened in above for loop, a new item can be inserted.
             itemList.insert(value);
             node = new Node(value);
             map.put(key, node);
@@ -289,68 +343,6 @@ public class LRU
             map.put(key, node);
         }
 
-        return "OK";
+        return OK;
     }
 }
-
-
-/*
-
- */
-class client
-{
-    public static void main(String[] args) {
-        LRU cache = null;
-        Scanner scanner = new Scanner(System.in);
-        String cmdString = scanner.next();
-        int myInt = scanner.nextInt();
-        if (cmdString.equals("SIZE"))
-        {
-            cache = new LRU(myInt);
-            System.out.println("SIZE OK");
-        }
-
-        try {
-            while (true) {
-//                cmdString = scanner.next();
-                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                String ip = br.readLine();
-                String[] ips = ip.split(" ");
-
-                // getting value from key.
-                if (ip.contains("GET")) {
-                    if (ips.length > 2)
-                    {
-                        System.out.println("ERROR");
-                        continue;
-                    }
-                    String retItem = cache.get(ips[1]);
-                    System.out.println(retItem);
-                }
-
-                // Setting key and value.
-                else if (ip.contains("SET")) {
-                    if (ips.length < 3)
-                    {
-                        System.out.println("ERROR");
-                        continue;
-                    }
-                    cache.set(ips[1], ips[2]);
-                    System.out.println("SET OK");
-                }
-
-                // Exits the program if user enters "EXIT".
-                else if (ip.contains("EXIT")) {
-                    break;
-                }
-            }
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }
-
-    }
-}
-
-
-
-
