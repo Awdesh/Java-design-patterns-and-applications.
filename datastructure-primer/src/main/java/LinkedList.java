@@ -99,7 +99,9 @@ class client {
         ll.insert(3);
         ll.insert(4);
         ll.insert(5);
+        System.out.println("**********************");
         ll.print();
+        System.out.println("**********************");
 
         System.out.println(ll.find(4));
         System.out.println(ll.find(40));
