@@ -1,3 +1,9 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  * Created by awdesh on 4/26/17.
  */
@@ -92,14 +98,22 @@ public class Tree {
     }
 
     public TreeNode createBinaryTree2(){
+        /*
+              50
+             /   \
+            10   80
+           /  \
+          5   20
+       */
+
         TreeNode left1 = new TreeNode(10);
-//        TreeNode right1 = new TreeNode(80);
+        TreeNode right1 = new TreeNode(80);
         TreeNode left1left2 = new TreeNode(5);
         TreeNode left1right2 = new TreeNode(20);
 //        TreeNode right1left2 = new TreeNode(60);
 //        TreeNode right1right2 = new TreeNode(90);
         root.setLeft(left1);
-//        root.setRight(right1);
+        root.setRight(right1);
 //
         left1.setLeft(left1left2);
         left1.setRight(left1right2);
@@ -126,7 +140,7 @@ public class Tree {
         if(runner == null){
             return;
         }
-        System.out.println(runner.val);
+        System.out.print(runner.val + " " + "\n");
         preOrderTraversal(runner.getLeft());
         preOrderTraversal(runner.getRight());
     }
@@ -140,7 +154,7 @@ public class Tree {
             return;
         }
         inorderTraversal(runner.getLeft());
-        System.out.println(runner.val);
+        System.out.print(runner.val + " " + "\n");
         inorderTraversal(runner.getRight());
     }
 
@@ -154,7 +168,35 @@ public class Tree {
         }
         postOrderTraversal(runner.getLeft());
         postOrderTraversal(runner.getRight());
-        System.out.println(runner.val);
+        System.out.print(runner.val + " " + "\n");
+    }
+
+    public void bfsTraversal(TreeNode node)
+    {
+        if ( root == null )
+        {
+            return;
+        }
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.add(root);
+        TreeNode curr;
+        while (q.size() > 0)
+        {
+            curr = q.remove();
+            if(curr == null)
+            {
+                break;
+            }
+            System.out.println(curr.val);
+            if(curr.getLeft() != null)
+            {
+                q.add(curr.getLeft());
+            }
+            if(curr.getRight() != null)
+            {
+                q.add(curr.getRight());
+            }
+        }
     }
 
     public boolean isBST(TreeNode root)
@@ -225,6 +267,55 @@ public class Tree {
         return (node == null) ? 0 : 1 + Math.max(maxHeight1(node.getLeft()), maxHeight1(node.getRight()));
     }
 
+    public ArrayList<Integer> serializeTree(TreeNode node, ArrayList<Integer> list)
+    {
+//        if(node == null)
+//            return
+
+//        traversal(node);
+        if(node != null) {
+            list.add(node.val);
+            serializeTree(node.getRight(), list);
+            serializeTree(node.getLeft(), list);
+        }
+        else
+            list.add(-1);
+
+        return list;
+    }
+
+//    public void traversal(TreeNode node)
+//    {
+//        if (node == null)
+//            return;
+//
+//        System.out.print(node.val + " ");
+//        traversal(node.getLeft());
+//        traversal(node.getRight());
+//
+//    }
+
+//    public void iterativeTraversal(TreeNode node)
+//    {
+//        // BFS uses Queue data structure
+//        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+//        queue.add(node);
+//        System.out.println(node);
+////        node.visited = true;
+//        while(!queue.isEmpty()) {
+//            TreeNode n = queue.remove();
+//            Node child=null;
+//            while((child=getUnvisitedChildNode(node))!=null) {
+//                child.visited=true;
+//                printNode(child);
+//                queue.add(child);
+//            }
+//        }
+//        // Clear visited property of nodes
+//        clearNodes();
+//
+//    }
+
     public boolean isHeightBalanced(TreeNode node)
     {
         if(node == null)
@@ -240,6 +331,23 @@ public class Tree {
 //        else
 //            return false;
     }
+
+//    public TreeNode createBinaryTreeFromSortedArray(int[] arr, int start, int end)
+//    {
+//
+//        int len = arr.length;
+//        int mid = (start + end) /2;
+//
+//        TreeNode n = new TreeNode(mid);
+//
+//        TreeNode leftSubTree = createBinaryTreeFromSortedArray(arr, start, mid);
+//        TreeNode rightSubTree = createBinaryTreeFromSortedArray(arr, mid + 1, end);
+//
+//        node.setLeft(leftSubTree);
+//        node.setRight(rightSubTree);
+//
+//        return node;
+//    }
 }
 
 class treeClient {
@@ -253,6 +361,9 @@ class treeClient {
         System.out.println("===============");
         tree.postOrderTraversal(runner);
         System.out.println("===============");
+        tree.bfsTraversal(runner);
+        System.out.println("===============");
+
 
         System.out.println("Max. Height of Tree is-: ");
         System.out.println(tree.maxHeight(runner));
@@ -273,6 +384,13 @@ class treeClient {
 
         System.out.println("Tree is Height Balanced-: ");
         System.out.println(tree.isHeightBalanced(runner));
+
+        ArrayList<Integer> l = new ArrayList<Integer>();
+        System.out.println("===============");
+
+        l = tree.serializeTree(runner, l);
+        for(int i : l)
+            System.out.println(i);
 
 
 
