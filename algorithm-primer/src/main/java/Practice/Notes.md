@@ -96,3 +96,16 @@ LinkedList-:
 =============
 using two pointers to traverse the list is always helpful.
 
+Arrays-:
+=========
+* Traverse it from both ends.
+* Instead of deleting, you can overwrite an element.
+
+* Given 2 list of numbers and an integer k return the k smallest pair of integers from the 2 list
+
+* Given an array of integers, find the greatest consecutive sum.  
+
+* Different between HashTable and BST.
+
+* Serialize and Deserialize a BST.
+

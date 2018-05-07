@@ -1,4 +1,4 @@
-package com.company;
+package Sorting;
 
 import java.util.Comparator;
 
@@ -57,7 +57,7 @@ public class CarSorting implements Comparable
  * bound to compareTo implementation and one can directly pass into
  * functors
  */
-class   comp1 implements Comparator<String>
+class comp1 implements Comparator<String>
 {
     @Override
     public int compare(String o1, String o2) {

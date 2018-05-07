@@ -1,29 +1,30 @@
 import ArraynStrings.*;
+import Sorting.*;
 
 
 public class Main {
 
     public static void main(String[] args)
     {
-        System.out.println("Before\n");
-        Matrix matrix = new Matrix();
-        int[][] arr = matrix.CreateArray();
-        System.out.println("\n");
-        System.out.println("After\n");
+//        System.out.println("Before\n");
+//        Matrix matrix = new Matrix();
+//        int[][] arr = matrix.CreateArray();
+//        System.out.println("\n");
+//        System.out.println("After\n");
+//
+//        for(int i = 0; i <arr.length; i++)
+//        {
+//            int[] sub = arr[i];
+//            for(int j = 0; j<sub.length;j++)
+//            {
+//                System.out.print(arr[i][j]);
+//            }
+//            System.out.println();
+//        }
+//
+//        System.out.println("\nPractice.fibonacci\n");
 
-        for(int i = 0; i <arr.length; i++)
-        {
-            int[] sub = arr[i];
-            for(int j = 0; j<sub.length;j++)
-            {
-                System.out.print(arr[i][j]);
-            }
-            System.out.println();
-        }
-
-        System.out.println("\nfibonacci\n");
-
-//        fibonacci fib = new fibonacci();
+//        Practice.fibonacci fib = new Practice.fibonacci();
 //        int res = fib.CreateSeries(6);
 //        System.out.println(res);
 //
@@ -33,15 +34,26 @@ public class Main {
 //
 //        System.out.println(s);
 //
-//        int[] A = new int[]{80,100,120,110,46,35,23,5,8976,52,1,34,-87,55,6,77,88};
-//
-//        BucketSort bs = new BucketSort();
-//        int[] op = bs.bucketsort(A);
-//
-//        for(int i : op)
-//        {
-//            System.out.println(i);
-//        }
+        int[] A = new int[]{80,100,120,110,46,35,23,5,8976,52,1,34,-87,55,6,77,88};
+        System.out.println("Before Sorting.");
+
+        for(int i : A)
+        {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+
+        System.out.print("\n");
+        System.out.println("After Sorting.");
+
+        BucketSort bs = new BucketSort();
+        int[] op = bs.bucketsort(A);
+
+        for(int i : op)
+        {
+            System.out.print(i);
+            System.out.print(" ");
+        }
 //
 //        CarSorting car1 = new CarSorting("Ford", 80);
 //        CarSorting car2 = new CarSorting("Chevy", 74);
