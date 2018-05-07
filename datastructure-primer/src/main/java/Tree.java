@@ -269,10 +269,6 @@ public class Tree {
 
     public ArrayList<Integer> serializeTree(TreeNode node, ArrayList<Integer> list)
     {
-//        if(node == null)
-//            return
-
-//        traversal(node);
         if(node != null) {
             list.add(node.val);
             serializeTree(node.getRight(), list);
@@ -284,38 +280,6 @@ public class Tree {
         return list;
     }
 
-//    public void traversal(TreeNode node)
-//    {
-//        if (node == null)
-//            return;
-//
-//        System.out.print(node.val + " ");
-//        traversal(node.getLeft());
-//        traversal(node.getRight());
-//
-//    }
-
-//    public void iterativeTraversal(TreeNode node)
-//    {
-//        // BFS uses Queue data structure
-//        Queue<TreeNode> queue = new LinkedList<TreeNode>();
-//        queue.add(node);
-//        System.out.println(node);
-////        node.visited = true;
-//        while(!queue.isEmpty()) {
-//            TreeNode n = queue.remove();
-//            Node child=null;
-//            while((child=getUnvisitedChildNode(node))!=null) {
-//                child.visited=true;
-//                printNode(child);
-//                queue.add(child);
-//            }
-//        }
-//        // Clear visited property of nodes
-//        clearNodes();
-//
-//    }
-
     public boolean isHeightBalanced(TreeNode node)
     {
         if(node == null)
@@ -325,11 +289,6 @@ public class Tree {
         int right_height = maxHeight(node.getRight());
 
         return Math.abs(left_height - right_height) <= 1 ? true : false;
-
-//        if (Math.abs(left_height - right_height) <= 1)
-//            return true;
-//        else
-//            return false;
     }
 
 //    public TreeNode createBinaryTreeFromSortedArray(int[] arr, int start, int end)
