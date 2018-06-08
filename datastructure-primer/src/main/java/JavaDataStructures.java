@@ -79,6 +79,44 @@ public class JavaDataStructures {
         while (itr1.hasNext()){
             System.out.println(itr1.next());
         }
+
+        System.out.println("***************************");
+
+        List<String> arrayList1 = new ArrayList<String>();
+        arrayList1.add("mary");
+        arrayList1.add("army");
+        arrayList1.add("melon");
+        arrayList1.add("lemon");
+        arrayList1.add("brake");
+        arrayList1.add("baker");
+        arrayList1.add("friend");
+        arrayList1.add("finder");
+
+        for(String s : arrayList1){
+            System.out.println(s);
+        }
+
+
+
+
+//        java.util.Collections.sort(arrayList1);
+//        System.out.println("***************************");
+//
+//        Set<String> s = new HashSet<String>();
+//        Iterator itr2 = arrayList1.listIterator();
+//        while (itr2.hasNext()){
+//            System.out.println(itr2.next());
+//            s.addAll(arrayList1);
+//        }
+//        System.out.println("***************************");
+//
+//        Iterator itrr = s.iterator();
+//        while (itrr.hasNext()){
+//            System.out.println(itrr.next());
+//        }
+//        System.out.println("***************************");
+
+
     }
 }
 
