@@ -10,5 +10,11 @@ public class Client
 
         context = new Context(new MultiplyOperation());
         System.out.println("10 * 5 = " + context.executeStrategy(10,5));
+
+        Singleton s = Singleton.getInstance();
+        s.showMessage();
+
+        FinalClass fc = new FinalClass();
+        fc.display();
     }
 }
