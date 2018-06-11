@@ -5,7 +5,7 @@ package InheritanceVsComposition;
  */
 public class Client{
     ExendingPersonClass person = new ExendingPersonClass("John", 25, "male", "Student");
-
     CompositionPersonClass cPerson = new CompositionPersonClass(person);
+
 
 }

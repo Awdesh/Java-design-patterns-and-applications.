@@ -40,7 +40,11 @@ public class ExendingPersonClass extends AbstractPerson {
         return age;
     }
 
-    public void demo() {
+    public void print() {
+        System.out.println(this.name);
+        System.out.println(this.age);
+        System.out.println(this.gender);
+        System.out.println(this.occupation);
 
     }
 }

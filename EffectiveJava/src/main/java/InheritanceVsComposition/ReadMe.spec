@@ -28,7 +28,7 @@ Final
 
 1) A Class that's been made final can't be inherited/subclassed.
 2) Please do not creata a class final unless you have a strong reason to do that.
-3) Final classes are difficult to test for mocking frameworks like mockito.
+3) Final classes are difficult to test for mocking frameworks like mockito. Google has asked me this question, how do I make a class not abailable for unit testing?
 
 Other Notes
 ----------------
