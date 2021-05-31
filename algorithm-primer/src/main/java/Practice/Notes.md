@@ -44,6 +44,7 @@ num = num/10;
 Tree-:
 ======
 
+```
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -91,6 +92,7 @@ namespace Practice
         }
     }
 }
+```
 
 LinkedList-:
 =============
